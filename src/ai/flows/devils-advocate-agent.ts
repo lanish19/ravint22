@@ -34,8 +34,7 @@ const prompt = ai.definePrompt({
 
 Consider this critique: {{critique}}
 
-Generate 4-5 strong counterarguments. Return a JSON array:
-```json
+Generate 4-5 strong counterarguments. Return a JSON array with the following structure:
 [
     "Counterargument 1 that challenges the core premise",
     "Counterargument 2 addressing potential negative consequences",
@@ -43,7 +42,6 @@ Generate 4-5 strong counterarguments. Return a JSON array:
     "Counterargument 4 questioning the evidence base",
     "Counterargument 5 about practical limitations"
 ]
-```
 
 Make arguments that are:
 - Substantive and thought-provoking

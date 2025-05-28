@@ -39,8 +39,7 @@ const prompt = ai.definePrompt({
   output: {schema: z.array(PremortermItemSchema)},
   prompt: `You are a premortem analysis agent. Consider this advice: {{{answer}}}.
 
-Imagine this advice is implemented and fails. Return a JSON array of failure modes:
-```json
+Imagine this advice is implemented and fails. Return a JSON array of failure modes with the following structure:
 [
   {
     "failure": "Specific way this could fail",
@@ -48,7 +47,6 @@ Imagine this advice is implemented and fails. Return a JSON array of failure mod
     "mitigation": "Concrete steps to prevent or handle this failure"
   }
 ]
-```
 
 Provide 3-4 realistic failure modes that:
 - Address different types of failures (implementation, context, unintended consequences)
@@ -69,3 +67,4 @@ const analyzeFailuresFlow = ai.defineFlow(
     return output!;
   }
 );
+

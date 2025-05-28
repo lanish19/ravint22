@@ -39,7 +39,6 @@ const researchEvidencePrompt = ai.definePrompt({
   prompt: `You are a research agent analyzing this claim: "{{{claim}}}"
 
 Find and analyze evidence for this claim. You must return a valid JSON array with exactly this structure:
-```json
 [
     {
         "claim": "Specific aspect of the claim being supported",
@@ -48,7 +47,6 @@ Find and analyze evidence for this claim. You must return a valid JSON array wit
         "source": "Credible source citation (journal, institution, etc.)"
     }
 ]
-```
 
 Provide 3-5 pieces of evidence. Ensure each piece:
 - Addresses a specific aspect of the claim

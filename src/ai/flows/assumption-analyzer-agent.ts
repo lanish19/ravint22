@@ -34,8 +34,7 @@ const prompt = ai.definePrompt({
   output: {schema: AnalyzeAssumptionsOutputSchema},
   prompt: `You are an assumption analyzer. Identify hidden assumptions in: "{{{answer}}}"
 
-Return a JSON array of assumptions:
-```json
+Return a JSON array of assumptions with the following structure:
 [
     {
         "assumption": "Hidden assumption being made",
@@ -43,7 +42,6 @@ Return a JSON array of assumptions:
         "alternative": "Alternative perspective that challenges this assumption"
     }
 ]
-```
 
 Find 3-4 key assumptions that:
 - Are not explicitly stated but required for the claim
