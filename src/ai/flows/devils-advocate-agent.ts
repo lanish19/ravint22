@@ -59,8 +59,26 @@ const challengeFlow = ai.defineFlow(
     outputSchema: ChallengeOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
-    return output || []; // Ensure an array is always returned
+    try {
+      const {output} = await prompt(input);
+
+      if (!Array.isArray(output)) {
+        console.warn(
+          'DevilsAdvocate output was not an array. LLM may not be conforming to schema. Output:',
+          output
+        );
+        // Check if output is null or undefined, which is more likely if the LLM failed completely.
+        if (output === null || typeof output === 'undefined') {
+          console.warn('DevilsAdvocate output was null or undefined. Returning empty array.');
+        }
+        return []; // Return empty array to maintain type safety if output is not an array
+      }
+      return output; // Output is a valid array
+    } catch (error) {
+      console.error('Error in challengeFlow:', error);
+      // Re-throw the error to let the orchestrator know something went wrong.
+      throw error;
+    }
   }
 );
 

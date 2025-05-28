@@ -51,15 +51,24 @@ const critiqueAgentFlow = ai.defineFlow(
     outputSchema: CritiqueAgentOutputSchema,
   },
   async (input): Promise<string> => {
-    const llmResponse = await critiqueAgentPrompt(input);
-    // Use optional chaining in case llmResponse itself is null/undefined
-    const critiqueText = llmResponse?.output; 
-    
-    if (typeof critiqueText === 'string') {
-      return critiqueText;
+    try {
+      const llmResponse = await critiqueAgentPrompt(input);
+      const critiqueText = llmResponse?.output;
+
+      if (typeof critiqueText === 'string') {
+        return critiqueText;
+      } else {
+        console.warn(
+          'CritiqueAgent output was not a string. LLM may not be conforming to schema. Output:',
+          critiqueText
+        );
+        return ""; // Return empty string to maintain type safety
+      }
+    } catch (error) {
+      console.error('Error in critiqueAgentFlow:', error);
+      // Re-throw the error to let the orchestrator know something went wrong.
+      throw error;
     }
-    // If critiqueText is null, undefined, or any non-string type, default to an empty string.
-    return ""; 
   }
 );
 

@@ -48,11 +48,25 @@ const respondFlow = ai.defineFlow(
     inputSchema: RespondInputSchema,
     outputSchema: RespondOutputSchema,
   },
-  async input => {
-    const {output} = await prompt(input);
-    return {
-      answer: output?.answer || "", // Ensure answer is always a string
-    };
+  async (input): Promise<RespondOutput> => {
+    try {
+      const {output} = await prompt(input);
+
+      // Validate output structure
+      if (output && typeof output.answer === 'string') {
+        return output;
+      } else {
+        console.warn(
+          'ResponderAgent output is not valid or answer is not a string. LLM may not be conforming to schema. Output:',
+          output
+        );
+        return {answer: ""}; // Return default to maintain type safety
+      }
+    } catch (error) {
+      console.error('Error in respondFlow:', error);
+      // Re-throw the error to let the orchestrator know something went wrong.
+      throw error;
+    }
   }
 );
 
