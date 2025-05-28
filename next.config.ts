@@ -18,6 +18,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Enable server actions
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '2mb', // Optional: adjust body size limit if needed for larger payloads
+    },
+  },
 };
 
 export default nextConfig;
