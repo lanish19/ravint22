@@ -65,6 +65,7 @@ const researchEvidenceFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await researchEvidencePrompt(input);
-    return output!;
+    return output || []; // Ensure an array is always returned
   }
 );
+

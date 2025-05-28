@@ -51,7 +51,8 @@ const respondFlow = ai.defineFlow(
   async input => {
     const {output} = await prompt(input);
     return {
-      answer: output!.answer,
+      answer: output?.answer || "", // Ensure answer is always a string
     };
   }
 );
+

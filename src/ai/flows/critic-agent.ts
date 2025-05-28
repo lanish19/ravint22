@@ -51,6 +51,7 @@ const critiqueAgentFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await critiqueAgentPrompt(input);
-    return output!;
+    return output || ""; // Ensure a string is always returned
   }
 );
+
